@@ -1,0 +1,11 @@
+
+
+div .mydiv {
+position: absolute;
+right: 15px;
+color:red;
+}
+div .page {
+position: absolute;
+top:80px;
+}

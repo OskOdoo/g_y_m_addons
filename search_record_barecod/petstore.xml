@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="petstore_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/search_record_barecod/static/src/css/petstore.css"/>
+                <script type="text/javascript" src="/search_record_barecod/static/src/js/petstore.js"/>
+            </xpath>
+        </template>
+
+        <menuitem id="main_petstore_menu" name="CodeBarre" />
+
+        <menuitem id="petstore_menu" name="Search"
+            parent="main_petstore_menu" />
+
+        <record id="action_home_page" model="ir.actions.client">
+            <field name="name">Recherche codebarre</field>
+            <field name="tag">petstore.homepage</field>
+        </record>
+
+        <menuitem id="home_page_petstore_menu" name="Barcode Search" parent="petstore_menu"
+            action="action_home_page"/>
+
+           </data>
+</openerp>

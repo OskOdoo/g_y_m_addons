@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Custom report.-->
+<openerp>
+  <data noupdate='0'>
+
+
+    <template id="report_facture_transport_id">
+       <xpath expr="//template[@id='report.external_layout_header']" position="replace"> 
+
+      </xpath>
+
+       <link rel='stylesheet' href="/gestion_adherent/static/src/css/report_facture.css"/>
+       <t t-call="report.external_layout" >  
+        <div class="page">
+
+          <tr t-foreach="docs"  t-as="o"   >
+              <div class="header">
+                <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\entete.png"  />
+              </div> 
+            <style type="text/css">
+              .tg  {width:100%;border: 1px solid black;position:center;text-align: center;}
+              .tgs  {border: 1px solid black;position:center;text-align: center;}
+              table, th , td {border-collapse:collapse;text-align: center;padding:10px;}
+            </style>
+             <h1><center>FACTURE N°<span t-esc="o.name"/></center></h1>
+
+            <h5><strong>Adresse :</strong>15900,Bouzguene,Tizi ouzou,Algérie</h5>
+            <h5><strong>CB :</strong>005 00162 4180687450 62</h5>
+            <h5><strong>Tél :</strong>0558.91.03.58 / 0549.35.65.50 / 026.14.64.90</h5>
+            <h5><strong>Email :</strong>handibouzguene@gmail.com</h5>
+            <h5><strong>Site-web :</strong>AHLA-BOUZGUENE.ORG</h5>
+            <div style='right:15px;position:absolute;'><h4><strong>Facturé Le :</strong> <span t-field="o.date"  t-field-options='{"format": "dd/MM/yyyy"}'/></h4></div><br/><br/><br/>
+
+            <style type="text/css">
+              .tg  {border-collapse:collapse;border-spacing:0;}
+              .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+              .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+              .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+              .mydiv {right:15px;position:absolute;}
+              .title {top:15px;position:absolute;}
+              .page {top:80px;position:absolute;}
+            </style>
+
+            <div class="col-xs-6">
+              <table class="tg" id='mytable' style="undefined;table-layout: fixed; width: 372px; position:right">
+                <tr>
+                  <th class="tg-0pky"><strong>Facturé a :</strong></th>
+                  <th class="tg-0pky"><span t-field="o.partner.name"/></th>
+                </tr>
+                <tr>
+                  <td class="tg-0pky"><strong>Tel :</strong></td>
+                  <td class="tg-0pky"><span t-field="o.partner.mobile"/></td>
+                </tr>
+                <tr>
+                  <td class="tg-0pky"><strong>Modalité de paiement:</strong></td>
+                  <td class="tg-0pky"><span t-field="o.modalite"/></td>
+                </tr>
+                <br/>
+              </table>
+            </div>
+            <br/>
+            <br/>
+
+
+  <t t-if="o.transport">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Produit/Service</th>
+          <th>Qté/durée</th>
+          <th>Prix unitaire</th>
+          <th>Total ligne</th>
+        </tr>
+      </thead>
+      <tr  t-foreach="o.transport"  t-as="op"   >
+        <tbody class="sale_tbody">
+          <td class="tg-yw4l">
+            <strong><span t-raw="op.service.name"/></strong>
+          </td>
+          <td class="tg-yw4l"><strong><span t-raw="op.duree"/></strong>
+        </td>
+
+        <td class="tg-yw4l"><strong><span t-raw="op.service.tarif"/></strong>
+      </td>
+
+        <td class="tg-yw4l"><strong><span t-raw="op.somme_service"/></strong>
+      </td>
+
+    </tbody>
+  </tr>
+</table>
+
+</t>
+<div class="row">
+  <div class="col-xs-4 pull-right">
+    <table class="table table-condensed">
+     <tr class="border-black">
+      <td><strong>Total</strong></td>
+      <td class="text-right">
+       <t t-set="t" t-value="o.price"/>
+       <!--span t-esc="t"
+        /--><span t-esc="'%.2f'% t"/>
+      </td>
+    </tr>
+      </table>
+    </div>
+    <br/> <br/> <br/>
+    <p style="font-size: 20px;left:20px;">
+      <strong>Arrêter la facture à la somme de:</strong> 
+      <span t-esc="o.get_amount_letter()"/> 
+    </p><br/>
+
+
+  </div>
+
+
+  <t t-if="o.note">
+    Observations: <strong><span t-field="o.note"/></strong>
+  </t>
+</tr>
+<br/>
+</div>
+<div class="footer">
+  <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\footer.png"  />
+</div> 
+</t>
+
+</template>
+
+
+
+<report 
+  id="custom_report_facture_transport"
+  model="adherent.transport"
+  string="Facture"
+  report_type="qweb-pdf"
+  name="gestion_adherent.report_facture_transport_id"
+  attachment_use="False"
+  file="gestion_adherent.report_facture_transport_id"
+  />
+
+  <record id="custom_report_facture_transport" model="ir.actions.report.xml">
+   <field name="paperformat_id" ref="paperformat_for_adherent"/> 
+ </record>
+</data>
+</openerp>

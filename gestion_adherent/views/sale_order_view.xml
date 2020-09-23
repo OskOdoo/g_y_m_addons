@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <openerp>
+    <data>     
+  <record id="view_order_form_inherit2" model="ir.ui.view">
+            <field name="name">sale.oreder.simplified2.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                  <field name="child" />
+                  <field name='ordre_id'/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="replace">
+                  <field name='state' invisible='1'/>
+                  <field name="state_ab" widget='statusbar'/>
+                </xpath>
+                <xpath expr="//label[@string='Sales Order ']" position="replace">
+                 <label string="Abonnement" attrs="{'invisible': [('state','in',('draft'))]}"/>
+                </xpath>
+
+                <xpath expr="//group[1]/group[2]" position="after">
+                  <group col='4'>
+                  <field name="debut" />
+                  <field name="jusqua" />
+                  </group>
+                  <div class='oe_inline'>
+                  <label string="Expire en : " attrs="{'invisible': [('solde', '=', 0)]}" style=" font-family='Times New Roman', Times, serif; font-size: 16px;color: #000000; "/>
+                  <field name="solde" style="color: #6A5ACD ; size=400%;  font-size: 36px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"  attrs="{'invisible': [('solde', '=', 0)]}"/>
+                  </div>
+        
+                  <group>
+                    <field name="mode_p" style="width:auto;"/>
+                  </group>
+                </xpath>
+          
+          </field>
+  </record>
+
+
+<record id="view_account_invoice_filter_inherited" model="ir.ui.view">
+            <field name="name">sale.order.select.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+   
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <field name="child" />
+            </xpath>
+            </field>
+        </record>
+
+<record id="view_order_tree_inherited2" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">  
+            <xpath expr="//field[@name='state']" position="replace">
+              <field name='state' invisible='True'/>
+              <field name='state_ab'/>
+            </xpath>
+          </field>
+</record>
+</data>
+</openerp>

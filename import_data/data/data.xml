@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+       <data noupdate="1">
+
+
+        <record id="import_data.ordre_one" model="account.ordre">
+            <field name='name'>Décembre</field>
+            <field name='date_debut'>2020-12-01</field>
+            <field name='date_fin'>2020-12-31</field>
+        </record>
+
+
+  </data>
+</openerp>

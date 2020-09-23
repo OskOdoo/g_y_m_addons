@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Custom report.-->
+<openerp>
+  <data noupdate='0'>
+
+
+    <template id="report_diagnostic">
+       <xpath expr="//template[@id='report.external_layout_header']" position="replace"> 
+
+     	</xpath>
+
+    	 <link rel='stylesheet' href="/gestion_adherent/static/src/css/report_facture.css"/>
+       <t t-call="report.external_layout" >  
+        <div class="page">
+        <div class="header">
+        	<img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\entete.png"  />
+        </div> 
+          <tr t-foreach="docs"  t-as="o"   >
+          		<center><h1><img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\diagno.png" style="  max-width: 50% ; position: right; margin-top: 25; margin-left: 10;padding:center;font-family:'palatino linotype', palatino, serif;" />
+          		</h1>
+          		</center> 
+
+            <h3>REFERENCE: <span t-field="o.name" /> </h3>
+          		<br/>
+          		<br/>
+          		<p><strong>NOM :</strong> <span t-field="o.adherent.name" />,<strong> PRENOM :</strong> <span t-field="o.adherent.prenom" />  <t t-if="  'masc'  == o.adherent.sexe "><strong>NE LE</strong></t> <t t-if="  'fem'  == o.adherent.sexe "><strong>NEE LE</strong></t> <span t-field="o.adherent.date_nais" /><strong> A : </strong><span t-field="o.adherent.lieu_nais" />
+          		</p>
+          		<br/><br/><br/>
+
+                          <style type="text/css">
+              .tg  {width:100%;border: 1px solid black;}
+              .tgs  {border: 1px solid black;padding:8px;}
+               th  {border-collapse:collapse;text-align: center;padding:10px;}
+            </style>
+            <div>
+              <table style="width:100%;border: 1px solid black;">
+                <tr class='tg'>
+                  <th><strong>DIAGNOSTIC</strong></th>
+                </tr>
+                <tr class='tg'>
+                    <td class='tgs'><span t-raw="o.diagnostic"/></td>
+                </tr>
+
+                <tr class='tg'>                
+                    <th><strong>MALADIE</strong></th>
+                </tr>
+                <tr t-foreach="o.maladie"  t-as="m">
+                    <td class='tgs' ><span t-esc="m.name"/></td>
+                </tr>
+
+                <tr class='tg'>
+                  <th><strong>TRAITEMENT</strong></th>
+                </tr>
+                <tr class='tg'>
+                    <td class='tgs'><span t-raw="o.traitement"/></td>
+                </tr>
+                <br/>
+              </table>
+
+              <p style="position:absolute;left:90px;:"><strong>PRATICIEN : <span t-field="o.praticien"/></strong></p>
+          		<p style="position:absolute;right:90px;:"><strong>BOUZGUENE , LE <span t-esc="time.strftime('%d/%m/%Y')" /></strong></p>
+
+            </div>
+		</tr>
+		</div>
+            <footer>
+          <div class="footer">
+              <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\footer.png"  />
+        </div> 
+        </footer>
+	</t>
+
+</template>
+
+
+
+<report 
+  id="custom_report_diagnostic"
+  model="diagno.malade"
+  string="FICHE DIAGNOSTIC"
+  report_type="qweb-pdf"
+  name="gestion_adherent.report_diagnostic"
+  attachment_use="False"
+  file="gestion_adherent.report_diagnostic"
+  />
+
+  <record id="custom_report_diagnostic" model="ir.actions.report.xml">
+   <field name="paperformat_id" ref="paperformat_for_adherent"/> 
+ </record>
+</data>
+</openerp>

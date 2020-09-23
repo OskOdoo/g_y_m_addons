@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Custom report.-->
+<openerp>
+  <data noupdate='0'>
+
+
+    <template id="report_facture_v2_id">
+       <xpath expr="//template[@id='report.external_layout_header']" position="replace"> 
+
+      </xpath>
+
+       <link rel='stylesheet' href="/gestion_adherent/static/src/css/report_facture.css"/>
+       <t t-call="report.external_layout" >  
+        <div class="page">
+        <div class="header">
+          <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\entete.png"  />
+        </div> 
+          <tr t-foreach="docs"  t-as="o"   >
+            <style type="text/css">
+              .tg  {width:100%;border: 1px solid black;position:center;text-align: center;}
+              .tgs  {border: 1px solid black;position:center;text-align: center;}
+              table, th , td {border-collapse:collapse;text-align: center;padding:10px;}
+            </style>
+          <h1><center>FACTURE N°<span t-esc="o.number_ref"/></center></h1>
+
+            <div>
+              <table style="width:100%;border: 1px solid black;text-align: center;">
+                <tr class='tg'>
+                  <th class='tgs' colspan="2"><strong>ASSURE</strong></th>
+                  <th class='tgs' colspan="2"><strong>MALADE</strong></th>
+                  <th class='tgs' rowspan="2"><strong>N°IMMATRICULE</strong></th>
+                  <th class='tgs' rowspan="2"><strong>SAISON</strong></th>
+                </tr>
+                <tr class='tg'>
+                  <th class='tgs'><strong>NOM ET PRENOM</strong></th>
+                  <th class='tgs'><strong>DATE DE NAISSANCE </strong></th>
+                  <th class='tgs'><strong>NOM ET PRENOM </strong></th>
+                  <th class='tgs'><strong>DATE DE NAISSANCE </strong></th>
+                </tr>
+                <tr class='tg'>
+                  <td class='tgs'>
+                    <t t-if="o.child.assure"><span t-field="o.child.assure.name"/> <span t-field="o.child.assure.prenom"/></t>
+                  </td>
+                  <td class='tgs'><t t-if="o.child.assure"><span t-field="o.child.assure.date_nais"/></t></td>
+                  <td class='tgs'><span t-field="o.child.name"/> <span t-field="o.child.prenom"/></td>
+                  <td class='tgs'><span t-field="o.child.date_nais"/></td>
+                   <td class='tgs'><span t-field="o.child.securite_sociale"/></td>
+                  <td class='tgs'> <span t-field="o.child.saison"/></td>
+                </tr>
+                <br/>
+              </table>
+            </div>
+
+            <div>
+              <table style="width:100%;border: 1px solid black;text-align: center;">
+                <tr class='tg'>
+                  <th class='tgs'><strong>NUM D'ORDRE</strong></th>
+                  <th class='tgs'><strong>NOMBRE DE JOURS </strong></th>
+                  <th class='tgs'><strong>TARIF MENSUEL </strong></th>
+                  <th class='tgs'><strong>MONTANT </strong></th>
+                  <th class='tgs'><strong>OBSERVATION </strong></th>
+                </tr>
+                <tr class='tg'>
+                  <td class='tgs'> <t t-if=" 'mois' == o.mode_p"><span t-field="o.debut"/> - <span t-field="o.jusqua"/></t>
+                                   <t t-if=" 'jours' == o.mode_p"><span t-field="o.debut"/> - <span t-field="o.jusqua"/></t>
+                                   <t t-if=" 'seance' == o.mode_p">DE <span t-field="o.jusqua"/></t>
+                                   
+                 </td>
+                  <td class='tgs'><span t-field="o.jours_ouvrable"/>
+                                  
+                                  
+                  </td>
+                  <td class='tgs' t-foreach='o.invoice_line' t-as="i"><span t-field="i.price_unit"/>
+                  </td>
+                  <td class='tgs'><span t-esc="'%.2f'% o.amount_total"/></td>
+                  <td><span t-esc="o.comment"/></td>
+                </tr>
+                <br/>
+              </table>
+              <br/><br/><br/>
+              <p style="font-size: 20px;left:20px;text-decoration-line: underline;text-decoration-color: black; text-decoration-style: wavy;">
+                <strong>ARRETEE LA PRESENTE FACTURE A LA SOMME DE : </strong> 
+                <span t-esc="o.get_amount_letter()"/> Algériens
+              </p><br/>
+            </div>
+
+          </tr>
+          <br/><br/>
+          <p style="position:absolute;left:90px;"><strong>LE TRESORIER</strong></p>
+          <p style="position:absolute;right:90px;"><strong>BOUZGUENE , LE <span t-esc="time.strftime('%d/%m/%Y')" /></strong></p><br/><br/><br/><br/><br/><br/><br/>
+
+
+          <div class="footer">
+              <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\footer.png"  />
+        </div> 
+        </div>
+
+      </t>
+    </template>
+
+
+<report 
+  id="custom_report_facture_v2"
+  model="account.invoice"
+  string="Facture V2"
+  report_type="qweb-pdf"
+  name="gestion_adherent.report_facture_v2_id"
+  attachment_use="False"
+  file="gestion_adherent.report_facture_v2_id"
+  />
+
+  <record id="custom_report_facture_v2" model="ir.actions.report.xml">
+   <field name="paperformat_id" ref="paperformat_for_adherent"/> 
+ </record>
+  </data>
+</openerp>

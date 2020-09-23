@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <openerp>
+    <data>     
+  <record id="view_handicap_form" model="ir.ui.view">
+          <field name="name">Handicap et Compensation</field>
+          <field name="model">handicap.compensation</field>
+          <field name="arch" type="xml">
+            <form name="handicap">
+              <sheet>
+                <div>
+                <group col='4'>
+                  <field name="date" style='width:auto;'/>
+                </group>
+                <group col='4'>
+                	<field name='name' required='True'/>
+                  <field name="categorie" style='width:auto;'/>
+                  <field name='adherent'/>
+                  <field name='ipp'/>
+                  <field name='oranisme'/>
+                  <field name='echeance'/>
+                  <field name='impact'/>
+                </group>
+              </div>
+                </sheet>
+            </form>
+          </field>
+  </record>
+
+  <record id="view_handicap_tree" model="ir.ui.view">
+          <field name="name">Handicap et Compensation</field>
+          <field name="model">handicap.compensation</field>
+          <field name="arch" type="xml">
+            <tree>
+                  <field name='name' required='True'/>
+                  <field name='categorie'/>
+                  <field name='adherent'/>
+                  <field name="date" style='width:auto;'/>
+            </tree>
+  </field>
+</record>
+
+</data>
+</openerp>

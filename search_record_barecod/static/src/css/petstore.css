@@ -1,0 +1,51 @@
+.searchbox input {
+    width: 500px;
+    padding: 10px 20px;
+    padding-left: 38px;
+    margin: 6px;
+    background: url("../img/icon.png") no-repeat 10px;
+    background-color: rgba(29, 85, 157,0.8);
+    border-radius: 10px;
+    font-size: 17px ;
+    font-weight: bold;
+    position: absolute;
+    font-family: sans-serif ;
+    top: 35%;
+    left: 26%;
+}
+.searchbox input:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px rgb(153, 153, 255) inset;
+    color: #800000;
+}
+.search-clear {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 11px;
+    left: 11px;
+    cursor: pointer;
+}
+.searchlabel {
+
+    background: url("../img/bar-code.png") no-repeat ;
+    width: 300px;
+    height:250px;
+   
+    position: absolute;
+    top: 2%;
+    left: 31%;
+}
+.ground {
+    background-image: linear-gradient(to bottom, #1D559D, #d4dae1);
+    height:100vh;
+}
+
+.img {
+    background: url("../img/bar.png") no-repeat ;
+    width: 128px;
+    height:100px;
+     position: absolute;
+    top: 82%;
+    left: 89%;
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_recette_wizard" model="ir.ui.view">
+            <field name="name">Calcule Bénifice</field>
+            <field name="model">recette.recette</field>
+            <field name="arch" type="xml">
+                <form string="Bénifice">
+                    <div class="oe_right">
+                    <group col='4' colspan='4'>
+                        <field name="date_debut" style='width:auto;'/>
+                        <field name="date_fin" style='width:auto;'/>
+                    </group>
+                    </div>
+
+
+
+                <style type="text/css">
+                .tg  {border-collapse:collapse;border-spacing:0;}
+                .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                .tg .tg-s268{text-align:left}
+                </style>
+                <br/><br/>
+                <div class="oe_left">
+                <table class="tg" style="undefined;table-layout: fixed; width: 361px">
+                  <tr>
+                    <th class="tg-s268"><label string='Crédit scolaire :' class="oe_inline" style="color:black ; size=100%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/></th>
+                    <th class="tg-s268"><strong><field name="nombre_paiem" style='width:auto;font-size: 16px;'/><label string='fois' class="oe_inline" style="color: #6A5ACD ; size=100%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/><i><field name="total_abonnement_payee" style='width:auto;font-size: 16px;'/>DA</i><br/></strong></th>
+                  </tr>
+                    <tr>
+                        <th class="tg-s268"><label string='Crédit Ventes :' class="oe_inline" style="color:black ; size=200%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/></th>
+                        <th class="tg-s268"><strong><field name="nb_ventes" style='width:auto;font-size: 16px;'/> <label string='fois' class="oe_inline" style="color:#6A5ACD; size=100%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/>    <i><field name="total_ventes" style='width:auto;font-size: 16px;'/>DA</i><br/></strong></th>
+                  </tr>
+
+                    <tr>
+                        <th class="tg-s268"><label string='Débit Achats :' class="oe_inline" style="color:black ; size=200%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/></th>
+                        <th class="tg-s268"><strong><field name="nombre_achat" style='width:auto;font-size: 16px;'/> <label string='fois' class="oe_inline" style="color:red; size=100%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/>    <i><field name="total_achat" style='width:auto;font-size: 16px;'/>DA</i><br/></strong></th>
+                  </tr>
+                    <tr>
+                        <th class="tg-s268"><label string='Debit Paie:' class="oe_inline" style="color:black ; size=200%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/></th>
+                        <th class="tg-s268"><strong><field name="nb_salaire" style='width:auto;font-size: 16px;'/> <label string='fois' class="oe_inline" style="color:red; size=100%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/>    <i><field name="total_salaire" style='width:auto;font-size: 16px;'/>DA</i><br/></strong></th>
+                  </tr>
+
+                </table>
+
+
+                    </div>
+                    <div class="oe_right">
+                    <!--img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\beni.png" style="  max-width: 50% ; left: 100; margin-top: 25; margin-left: 10;padding:center;font-family:'palatino linotype', palatino, serif;" /-->
+                    <group>
+                        <field name="recette" style='width:auto;color:blue ; size=150%;  font-size: 25px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);'/>
+                        <field name="depense" style='width:auto;color:red ; size=150%;  font-size: 25px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);'/>
+                    </group>
+
+                    </div>  
+                         <footer>
+
+                    <div class="oe_inline oe_left" style='width:auto;hight:40px;'>
+                    <label string='Bénifices :' class="oe_inline" style="color:black ; size=200%;width:auto;hight:40px;  font-size: 20px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/>
+                        <field name="benfice" style='width:auto;color:green ; size=400%;  font-size: 36px;text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);width:auto;hight:40px;"'/><label string='DA' class="oe_inline" style="color: #6A5ACD ; size=200%;width:auto;hight:40px;  font-size: 20px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/>
+                    </div>
+                    <button string="Quitter" class=" oe_left oe_link" special="cancel"/>
+                 </footer>               
+                 </form>
+
+             </field>
+         </record>
+                  
+            <record id="action_benefice_recette" model="ir.actions.act_window">
+                <field name="name">Calcule Bénéfice</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">recette.recette</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+            </record>
+
+<!--         <menuitem 
+        action="action_benefice_recette"
+        id="menu_open_view_benifice"
+        name="Bénéfice"
+        sequence="8" 
+        parent="menu_open_view_ca_parent" /> -->
+
+
+    </data>
+</openerp>

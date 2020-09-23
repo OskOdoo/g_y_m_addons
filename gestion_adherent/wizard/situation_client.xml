@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record id="view_situation_wizard" model="ir.ui.view">
+            <field name="name">Situation Client</field>
+            <field name="model">situation.client</field>
+            <field name="arch" type="xml">
+                <form string="Situation Client">
+                    <div class="oe_right">
+                    <group col='4' colspan='4'>
+                        <field name="date_debut" style='width:auto;'/>
+                        <field name="date_fin" style='width:auto;'/>
+                        <field name="adherent" style='width:auto;'/>
+                    </group>
+                    </div>
+
+
+
+                <style type="text/css">
+                .tg  {border-collapse:collapse;border-spacing:0;}
+                .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                .tg .tg-s268{text-align:left}
+                </style>
+                <br/><br/>
+                <div class="oe_left">
+                <table class="tg" style="undefined;table-layout: fixed; width: 361px">
+                  <tr>
+                    <th class="tg-s268"><label string='Crédit scolaire :' class="oe_inline" style="color:black ; size=100%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/></th>
+                    <th class="tg-s268"><strong><field name="nombre_paiem" style='width:auto;font-size: 16px;'/><label string='fois' class="oe_inline" style="color: #6A5ACD ; size=100%;width:auto;hight:40px;  font-size: 16px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/></strong></th>
+                  </tr>
+                    
+                </table>
+
+
+                    </div>
+                    <div class="oe_right">
+            
+                    <group>
+                        <field name="reste" style='width:auto;color:blue ; size=150%;  font-size: 25px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);'/>
+                    </group>
+
+                    </div>
+                    <sheet>
+                        <notebook>
+                            <page string='Resulat'>
+                                    <field name="liste_client" widget='html' readonly='1'/>
+                            </page>
+                        </notebook>
+                    </sheet>             
+                 </form>
+             </field>
+         </record>
+                  
+            <record id="action_situation_client" model="ir.actions.act_window">
+                <field name="name">Situation Client</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">situation.client</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+            </record>
+
+<!--         <menuitem 
+        action="action_situation_client"
+        id="menu_open_view_situation_client"
+        name="Situation Client"
+        sequence="9" 
+        parent="menu_open_view_ca_parent" /> -->
+
+
+    </data>
+</openerp>

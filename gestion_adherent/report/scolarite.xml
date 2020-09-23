@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Custom report.-->
+<openerp>
+  <data noupdate='0'>
+
+
+    <template id="report_certeficat_scolarite">
+       <xpath expr="//template[@id='report.external_layout_header']" position="replace"> 
+
+     	</xpath>
+
+    	 <link rel='stylesheet' href="/gestion_adherent/static/src/css/report_facture.css"/>
+       <t t-call="report.external_layout" >  
+        <div class="page"> 
+          <tr t-foreach="docs"  t-as="o"   >
+              <div class="header">
+                <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\entete.png"  />
+              <center><h1><img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\certificat.png" style="  max-width: 50% ; position: right; margin-top: 25; margin-left: 10;padding:center;font-family:'palatino linotype', palatino, serif;" />
+              </h1>
+              </center> 
+              </div>
+          		<p>JE SOUSSIGNE, <strong> MR HAMOUM SAID </strong>, PRESIDENT DE L'ASSOCIATION DES HANDICAPES ET LEURS AMIS DE BOUZGUENE, CERTIFIE QUE :
+          		</p>
+          		<p><strong>NOM :</strong> <span t-field="o.name" />,<strong> PRENOM :</strong> <span t-field="o.prenom" />  <t t-if="  'masc'  == o.sexe "><strong>NE LE</strong></t> <t t-if="  'fem'  == o.sexe "><strong>NEE LE</strong></t> <span t-field="o.date_nais" /><strong> A : </strong><span t-field="o.lieu_nais" /></p>
+          		<p>
+          		<t t-if="  'fem'  == o.sexe "><strong>	EST SCOLARISEE AU</strong></t><t t-if="  'masc' == o.sexe "> <strong>	EST SCOLARISEE AU</strong></t> CENTRE PSYCHO-PEDAGOGIQUE, <strong>	GROUPE</strong> <span t-field="o.group_id.name" /> ,<strong>POUR LA SAISON</strong>: <span t-field="o.saison" />
+          		</p>
+              <p style="position:absolute;right:90px;"><strong>BOUZGUENE , LE <span t-esc="time.strftime('%d/%m/%Y')" /></strong></p><br/><br/><br/><br/>
+
+
+          <div class="footer">
+              <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\footer.png"  />
+        </div> 
+		</tr>
+		</div>
+          <footer>
+          <div class="footer">
+              <img class="img img-responsive" align="center"  src="/gestion_adherent\static\img\footer.png"  />
+        </div> 
+        </footer>
+	</t>
+
+</template>
+
+
+
+<report 
+  id="custom_report_certeficat"
+  model="gym.adherent"
+  string="CERTEFICAT DE SCOLARITE"
+  report_type="qweb-pdf"
+  name="gestion_adherent.report_certeficat_scolarite"
+  attachment_use="False"
+  file="gestion_adherent.report_certeficat_scolarite"
+  />
+
+  <record id="custom_report_certeficat" model="ir.actions.report.xml">
+   <field name="paperformat_id" ref="paperformat_for_adherent"/> 
+ </record>
+</data>
+</openerp>

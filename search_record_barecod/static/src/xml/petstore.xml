@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates  xml:space="preserve">
+<t t-name="HomePageTemplate">
+	<div class="ground">
+        <div class="searchlabel" ></div>
+ 
+	 	<div class="searchbox">
+                <input id="inputURL" placeholder="Scanner un codebarre" />
+                <span class="search-clear"></span>
+            </div>
+            <div class="img"></div>
+            </div>
+   
+    </t>
+</templates>

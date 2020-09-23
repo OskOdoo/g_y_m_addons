@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <openerp>
+    <data>
+  <record id="view_maladie_form" model="ir.ui.view">
+          <field name="name">Maladies</field>
+          <field name="model">maladie.adherent</field>
+          <field name="arch" type="xml">
+            <form name="Maladies">
+              <group>
+                <field name='name' required='True'/>
+                <field name='description' widget='html'/>
+              </group>
+            </form>
+          </field>
+  </record>
+
+  <record id="view_maladie_tree" model="ir.ui.view">
+          <field name="name">Maladies</field>
+          <field name="model">maladie.adherent</field>
+          <field name="arch" type="xml">
+            <tree name="Maladies">
+                <field name='name'/>
+            </tree>
+          </field>
+  </record>
+
+
+  <record id="view_diagnostic_form" model="ir.ui.view">
+          <field name="name">Diagnostic</field>
+          <field name="model">diagno.malade</field>
+          <field name="arch" type="xml">
+            <form name="Diagnostic">
+              <sheet>
+                <h1><field name='name' placeholder='Référence' required='True'/></h1>
+                <div string="Diagnostic">
+                <group col='4'>
+                  <field name="date" style='width:auto;'/>
+                  <field name="date_remis" style='width:auto;'/>
+                </group>
+                <group col='4'>
+                	<field name='praticien' style='width:auto;' required='True'/>
+                  <field name='specialite' style='width:auto;'/>
+                  <field name="adherent" style='width:auto;'/>
+                </group>
+              </div>
+              <notebook>
+                <page string="Diagnostic">
+                    <field name="diagnostic" widget='html' required='True'/>
+                </page>
+                <page string='Maladie'>
+                  <field name="maladie"/>
+                </page>
+                <page string="Traitement">
+                    <field name="traitement" widget='html'/>
+                </page>
+                  <page string='Notes'>
+                    <field name="note"  widget='html'/>
+                	</page>
+                <page string='Traçabilité de modification'>
+                  <group>
+                    <field name="write_date" string='Modifié Le' readonly='1'/>
+                    <field name='write_uid' string='Modifié par' readonly='1'/>
+                  </group>
+                </page>
+              </notebook>
+                </sheet>
+            </form>
+          </field>
+  </record>
+  <record id="view_diagnostic_search" model="ir.ui.view">
+          <field name="name">Diagnostic</field>
+          <field name="model">diagno.malade</field>
+              <field name="arch" type="xml">
+                  <search string="Recherche diagnostic">
+                      <field name="adherent"/>
+                      <separator/>
+                      <separator/>
+
+                      <group expand="0" string="Grouper Par">
+                          <filter string="Adhérents" domain="[]" context="{'group_by':'adherent'}"/>
+                          <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                          <filter string="Utilisateur" domain="[]" context="{'group_by':'create_uid'}"/>
+                      </group>
+                 </search>
+              </field>
+          </record>
+  <record id="view_diagnostic_tree" model="ir.ui.view">
+          <field name="name">Diagnostic</field>
+          <field name="model">diagno.malade</field>
+          <field name="arch" type="xml">
+            <tree>
+                  <field name='adherent'/>
+                  <field name="date" style='width:auto;'/>
+                  <field name="praticien" style='width:auto;'/>
+            </tree>
+  </field>
+</record>
+
+</data>
+</openerp>

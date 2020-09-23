@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record id="view_contact_wizard" model="ir.ui.view">
+            <field name="name">Contacts</field>
+            <field name="model">adherent.contact</field>
+            <field name="arch" type="xml">
+                <form string="contact">
+                    <div class="oe_right">
+                    <group col='4' colspan='4'>
+                        <field name="adherent" style='width:auto;'/>
+                    </group>
+                    </div>
+
+
+
+<!--                 <style type="text/css">
+                .tg  {border-collapse:collapse;border-spacing:0;}
+                .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                .tg .tg-s268{text-align:left}
+                </style>
+                <br/><br/>
+                <div class="oe_left">
+                <table >
+                  <tr>
+                    <th/></th>
+                    <th/></th>
+                  </tr>
+                    
+                </table>
+
+
+                    </div>
+                    <div class="oe_right">
+            
+                    <group>
+                        <field name="reste" style='width:auto;color:blue ; size=150%;  font-size: 25px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);'/>
+                    </group>
+
+                    </div> -->
+                    <sheet>
+                        <notebook>
+                            <page string='Resulat'>
+                                    <field name="resultat" widget='html' readonly='1'/>
+                            </page>
+                        </notebook>
+                    </sheet>             
+                 </form>
+             </field>
+         </record>
+                  
+            <record id="action_contact" model="ir.actions.act_window">
+                <field name="name">contact</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">adherent.contact</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+            </record>
+
+        <menuitem 
+        action="action_contact"
+        id="menu_open_view_contact"
+        name="Contacts"
+        sequence="10" 
+        parent="gym_reglage" />
+
+
+    </data>
+</openerp>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <openerp>
+    <data>     
+  <record id="view_account_form_inherit2" model="ir.ui.view">
+            <field name="name">account.invoice.simplified2.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]/group[2]" position="after">
+                  <group col='4'>
+                  <field name="debut" />
+                  <field name="jusqua" />
+                  </group>
+
+        
+                  <group>
+                    <field name='jours_ouvrable' style="width:auto;" />
+                    <field name="mode_p" style="width:auto;"/>
+                    <field name='ordre_id' style="width:auto;" />
+                    <field name='number'/>
+                    <field name='sequence_id'/>
+                    <field name='cnas_casnos'/>
+                  </group>
+                </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <field name="child" />
+            </xpath>
+
+           <xpath expr="//field[@name='number']" position="replace">
+                <field name='number_ref'/>
+           </xpath>
+          </field>
+  </record>
+
+
+  <record id="invoice_tree_inherited2" model="ir.ui.view">
+            <field name="name">account.invoice.simplified2.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+              <field name='number_ref'/>
+            </xpath>
+            <xpath expr="//field[@name='number']" position="attributes">
+              <attribute name='invisible'>True</attribute>
+          </xpath>
+        </field>
+  </record>
+
+<record id="account.view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">account.invoice.select</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice">
+                    <field name="number" string="Invoice" filter_domain="['|','|','|', ('number','ilike',self), ('origin','ilike',self), ('supplier_invoice_number', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Invoices"/>
+                    <filter name="proforma" string="Proforma" domain="[('state','=','proforma2')]" help="Proforma Invoices" groups="account.group_proforma_invoices"/>
+                    <filter name="invoices" string="Invoices" domain="[('state','not in',['draft','cancel'])]" help="Proforma/Open/Paid Invoices"/>
+                    <filter name="unpaid" string="Unpaid" domain="[('state','=','open')]" help="Unpaid Invoices"/>
+
+                    <separator/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="user_id" string="Salesperson"/>
+                    <field name="period_id" string="Period"/>
+                    <field name="type" />
+                    <field name="child" />
+                    <separator/>
+                    <filter domain="[('user_id','=',uid)]" help="My Invoices"/>
+                    <group expand="0" string="Group By">
+                      <filter name="group_by_partner_id" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter string="Salesperson" context="{'group_by':'user_id'}"/>
+                        <filter string="Status" context="{'group_by':'state'}"/>
+                        <separator/>
+                        <filter string="Period" context="{'group_by':'period_id'}"/>
+                        <filter string="Due Month" context="{'group_by':'date_due'}"/>
+                        <filter string="Classement" context="{'group_by':'cnas_casnos'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+<record id="view_account_invoice_filter_inherited" model="ir.ui.view">
+            <field name="name">account.invoice.select.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+          <xpath expr="//filter[@name='draft']" position="after">
+            <filter name="type" string="Out" domain="[('type','=','out_invoice')]" help="Out Invoices"/>
+          </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <field name="type" />
+              <field name="child" />
+            </xpath>
+            </field>
+        </record>
+
+
+  <record id="view_account_ordre" model="ir.ui.view">
+            <field name="name">account.ordre.simplified2.form</field>
+            <field name="model">account.ordre</field>
+            <field name="arch" type="xml">
+              <form>
+                  <group>
+                    <field name='name' style="width:auto;" placeholder='Ex: Janvier'/>
+                    <field name="date_debut" style="width:auto;"/>
+                    <field name='date_fin'  style="width:auto;"/>
+                  </group>
+              </form>
+            </field>
+  </record>
+
+
+  <record id="view_account_ordre_tree" model="ir.ui.view">
+            <field name="name">account.ordre.simplified2.tree</field>
+            <field name="model">account.ordre</field>
+            <field name="arch" type="xml">
+              <tree>
+                <field name='name'/>
+                <field name='date_debut'/>
+                <field name='date_fin'/>
+              </tree>
+            </field>
+  </record>
+
+
+
+
+
+        <record id="open_view_account_ordre" model="ir.actions.act_window">
+            <field name="name">Ordre du mois</field>
+            <field name="res_model">account.ordre</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      <menuitem 
+          id="account_ordre_menu_id" 
+          name="Ordre du mois"
+          groups='base.group_user'
+          action='open_view_account_ordre'
+          parent="base.menu_base_config"
+          sequence="1"  />
+
+</data>
+</openerp>

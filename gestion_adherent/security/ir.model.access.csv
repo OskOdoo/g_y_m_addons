@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+"access_gerant_gym_adherent","GERANT 1","model_gym_adherent","gestion_adherent.group_gerant_user",1,1,1,1
+"access_gerant_partner","GERANT 16","base.model_res_partner","gestion_adherent.group_gerant_user",1,1,1,1
+
+
+
+
+
+
+
+
+
+
+
+

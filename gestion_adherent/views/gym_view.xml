@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <openerp>
+    <data>     
+
+  <record id="act_hr_adherent_2_absence" model="ir.actions.act_window">
+              <field name="res_model">absence.adherent</field>
+              <field name="view_type">form</field>
+              <field name="name">Absences</field>
+              <field name="view_mode">tree,form</field>
+              <field name="context">{'search_default_adherent': [active_id], 'default_adherent': active_id}</field>
+  </record>
+
+        <record id="action_invoice_tree1" model="ir.actions.act_window">
+            <field name="name">Factures</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','out_invoice')]</field>
+            <field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale','search_default_child': [active_id], 'default_child': active_id}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a customer invoice.
+              </p><p>
+                Odoo's electronic invoicing allows to ease and fasten the
+                collection of customer payments. Your customer receives the
+                invoice by email and he can pay online and/or import it
+                in his own system.
+              </p><p>
+                The discussions with your customer are automatically displayed at
+                the bottom of each invoice.
+              </p>
+            </field>
+        </record>
+        <record id="act_malade_2_sale_order" model="ir.actions.act_window">
+            <field name="name">Abonnements</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'search_default_child': [active_id], 'default_child': active_id}</field>
+            <field name="groups_id" eval="[(4, ref('base.group_sale_salesman'))]"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation or sales order for this customer.
+              </p><p>
+                Odoo will help you efficiently handle the complete sale flow:
+                quotation, sales order, delivery, invoicing and
+                payment.
+              </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customer to keep track of the evolution
+                of the sales order.
+              </p>
+            </field>
+        </record>
+  <record id="act_hr_adherent_2_diagno" model="ir.actions.act_window">
+              <field name="res_model">diagno.malade</field>
+              <field name="view_type">form</field>
+              <field name="name">Diagnostic</field>
+              <field name="view_mode">tree,form</field>
+              <field name="context">{'search_default_adherent': [active_id], 'default_adherent': active_id}</field>
+  </record>
+
+
+
+  <record id="view_gym_adherent" model="ir.ui.view">
+          <field name="name">LES ADHERENTS</field>
+          <field name="model">gym.adherent</field>
+          <field name="arch" type="xml">
+            <form name="GYM ADHERENT">
+              <header>
+<!--                     <button String="Payer l'abonnement" name="open_wizard" type="object"   class="oe_highlight" context="{}"  attrs="{'invisible': ['|',('mois_payee', '=', True),('ext_int', '=', 'externe')]}" /> -->
+                    <label string="Interne ou Externe ?:" class='oe_inline'/><field name='ext_int' style='width:auto;' class='oe_inline'/>
+            </header>
+              <sheet>
+                <style>
+                    .openerp .my_image > img { height: 200px; width: 200px;  position:relative;} 
+                    .openerp .oe_form .oe_form_field_image img { max-width:200px; max-height: 210px; position:relative; }
+                    .openerp .solde { left:20px;}
+                    .openerp .oe_stat_button { left:1220px;}
+                </style>
+
+                <div class="solde" style='width:auto; position:relative;' invisible='True'>
+                    <label string="Jour restants : " attrs="{'invisible': [('solde', '=', 0)]}" style=" font-family='Times New Roman', Times, serif; font-size: 16px;color: #000000; "/>
+                    <field name="solde" style="color: #6A5ACD ; size=400%;  font-size: 36px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"  attrs="{'invisible': [('solde', '=', 0)]}"/>
+                    <label string="Jours de Retardements :" attrs="{'invisible': [('solde', '!=', 0)]}" style=" font-family='Times New Roman', Times, serif; font-size: 16px; color: #8B0000"/>
+                    <field name="cmpt"  attrs="{'invisible': [('solde', '!=', 0)]}" style="color: #DC143C ; size=400%;  font-size: 36px;  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.44);"/>
+                    <label string="Abonnement valide jusqu'au "  attrs="{'invisible': ['|',('mois_payee', '=', False),('ext_int','=','externe')]}" />
+                    <field name="mois_payee" string="Le mois est payé"  attrs="{'invisible': ['|',('mois_payee', '=', False),('ext_int','=','externe')]}" style=" font-family='Times New Roman', Times, serif; font-size: 16px; "/>
+                    
+                  </div>
+                    <div  style='width:auto; position:relative;' col='4'>
+
+                      <button name="%(act_malade_2_sale_order)d" 
+                              class="oe_stat_button" 
+                              icon="fa-folder" 
+                              type="action"
+                              
+                             >
+                        <field name='count' widget="statinfo"/>
+                      </button>
+                    
+                      <button name="%(act_hr_adherent_2_absence)d" 
+                              class="oe_stat_button" 
+                              icon="fa-clock-o" 
+                              type="action"
+                              string='Absences'
+                             >
+                      </button>
+                      <button name="%(act_hr_adherent_2_diagno)d" 
+                              class="oe_stat_button" 
+                              icon="fa-stethoscope" 
+                              type="action"
+                              string='Diagnostic'
+                             >
+                      </button>
+ 
+                </div>
+                <field name="image" widget='image' class= "my_image" style='right:400px; top: 40px; position:absolute;max-width:200px; max-height: 210px; '/>
+                <div string="Informations Générales" style='width:auto;'>
+                <group name="Informations Générales" string="Informations Générales" style='width:auto;'>
+                  <field name="name" style='width:auto;' required='True'/>
+                  <field name="prenom" style='width:auto;' required='True'/>
+                  <field name="date_nais" style='width:auto;' />
+                  <field name="lieu_nais" style='width:auto;'/>
+                  <field name="pere" style='width:auto;'/>
+                  <field name="mere" style='width:auto;'/>
+                  <field name="assure" style='width:auto;'/>
+                  <field name="partner_mobile" style='width:auto;' required='True'/>
+                  <field name="securite_sociale" style='width:auto;'/>
+                  <field name="cn_id" style='width:auto;'/>
+                </group>
+                </div>
+                <group name="group">
+                   <field name="default_code" style='width:auto;'/>
+                </group>
+                <notebook attrs="{'invisible': [('ext_int', '=', 'externe')]}">
+                <page name="Abonnements" string="Abonnements" style='width:auto;'>
+                  <group>
+                    <field name="saison" style='width:auto;'/>
+                    <field name="date_debut" style='width:auto;'/>
+                    <field name="date" />
+                    <field name="fidelite" widget="priority" style='width:auto;' invisible='True'/>
+
+                  </group>
+                </page> 
+                <page string='Tuteurs'>
+                  <group >
+                    <field name='parents' widget='many2many_kanban'/>
+                  </group>
+                </page>      
+                <page string="Fiche Médicale">
+                  <group col='4'>
+                    <field name="poids"/>
+                    <field name="taille"/>
+                    <field name="sexe" widget='radio' style='width:auto;'/>
+                    </group>
+                    <group col='6'>
+                      <field name="groupe_sanguin" style='width:auto;'/>
+                      <field name="rhesus" attrs="{'invisible': [('groupe_sanguin', '=', 0)]}" style='width:auto;'/>
+                   </group>
+                  
+                </page>
+                <page string="Scolarisation/Formation">
+                  <group>
+                    <field name='etablissement_ids'>
+                      <tree editable='top'>
+                        <field name='ecole'/>
+                        <field name='niveau'/>
+                        <field name='saison'/>
+                      </tree>
+                    </field>
+                  </group>
+
+                </page>
+                 <page string="Handicap Et Compensation">
+                   <field name='compensation_ids'>
+                    </field>
+                </page>
+                </notebook>
+                </sheet>
+            </form>
+          </field>
+  </record>
+
+
+
+
+     
+  <record id="view_tree_gym_adherent" model="ir.ui.view">
+          <field name="name">Liste des adhérents</field>
+          <field name="model">gym.adherent</field>
+          <field name="arch" type="xml">
+
+            <tree>
+                <field name="name"  />
+                <field name="prenom"  />
+                <field name='date' />
+                <field name="sexe" invisible="True"/>
+            </tree>
+          </field>
+  </record>
+
+   <record id="view_paimenet_adherent_filter" model="ir.ui.view">
+              <field name="name">Les abonnements non payés</field>
+              <field name="model">gym.adherent</field>
+              <field name="arch" type="xml">
+                  <search string="Non payé" create="false">
+                      <field name="name"/>
+                      <field name="mois_payee" invisible="True"/>
+                      <separator/>
+
+                      <separator/>
+                      <group expand="0" string="Group By">
+                          <filter string="Nom" domain="[]" context="{'group_by':'name'}"/>
+                          <filter string="Abonnement" domain="[]" context="{'group_by':'abonnement_id'}"/>
+                          <filter string="Sexe" domain="[]" context="{'group_by':'sexe'}"/>
+                      </group>
+                 </search>
+              </field>
+  </record>
+
+             
+
+  
+        <record id="open_view_gym_adherent" model="ir.actions.act_window">
+            <field name="name">Adhérents</field>
+            <field name="res_model">gym.adherent</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="tree_view_id" ref="view_tree_gym_adherent"/>
+        </record>
+
+
+        
+        <record id="open_view_abs" model="ir.actions.act_window">
+            <field name="name">Absences</field>
+            <field name="res_model">absence.adherent</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <record id="open_view_gym_adherent_ap" model="ir.actions.act_window">
+            <field name="name">Adhérence expirée</field>
+            <field name="res_model">gym.adherent</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_paimenet_adherent_filter"/>
+            <field name="view_mode">tree,search,kanban,form</field>
+            <field name="domain">['|',('date','ilike', current_date),('date','&lt;', 'current_date)]</field>
+        </record>
+
+
+        <record id="open_view_gym_parent" model="ir.actions.act_window">
+            <field name="name">Tuteurs</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('tuteur','=',1)]</field>
+            <field name="context">{'default_tuteur':'True'}</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+        
+        <record id="open_view_gym_passure" model="ir.actions.act_window">
+            <field name="name">Assures</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('assure','=',1)]</field>
+            <field name="context">{'default_assure':'True'}</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+
+
+      <menuitem 
+          name="Administration"
+          id="golden_gym"
+          sequence="1" />
+
+
+      <menuitem 
+          id="gym_adherent" 
+          name="Enfants et Abonnements"
+          parent="golden_gym"
+          sequence="1"  />
+<!-- 
+      <menuitem 
+          id="gym_adherent_vente_parent" 
+          name="Gérer les ventes"
+          parent="golden_gym_ventes"
+          sequence="1"  /> -->
+
+      <menuitem 
+          id="gym_reglage" 
+          name="Annuaires"
+          parent="golden_gym"
+          sequence="2"  />
+
+
+
+
+
+      <menuitem 
+          action="open_view_gym_adherent"
+          id="menu_open_view_gym_adherent"
+          name="Nos Enfants"
+          sequence="3" 
+          parent="gym_adherent" />
+
+      
+       <menuitem 
+          action="open_view_gym_adherent_ap"
+          id="menu_open_view_gym_adherent_ap"
+          name="Adhésions Expirées"
+          sequence="4" 
+          parent="gym_adherent"/>
+
+
+
+      <menuitem 
+          action="open_view_gym_parent"
+          id="menu_open_view_parent"
+          name="Les Tuteurs"
+          sequence="8" 
+          parent="gym_reglage" />    
+      <menuitem 
+          action="open_view_gym_passure"
+          id="menu_open_view_assure"
+          name="Les Assures"
+          sequence="8" 
+          parent="gym_reglage" />  
+
+
+
+        <menuitem name="Abonnements"
+            id="base.menu_base_partner"
+            groups="base.group_sale_salesman,base.group_sale_manager"/>
+       
+    </data>
+  </openerp>

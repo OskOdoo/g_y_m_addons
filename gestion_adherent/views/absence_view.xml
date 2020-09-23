@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <openerp>
+    <data>     
+  <record id="view_absences_form" model="ir.ui.view">
+          <field name="name">Absences</field>
+          <field name="model">absence.adherent</field>
+          <field name="arch" type="xml">
+            <form name="Absences">
+              <sheet>
+                <div string="Absences">
+                <group col='4'>
+                  <field name="date" style='width:auto;'/>
+                  <field name="date_rentre" style='width:auto;'/>
+                </group>
+                <group>
+                	<field name='adherent'/>
+                  <field name="type_abs" style='width:auto;'/>
+                </group>
+              </div>
+              <notebook>
+                <page string='Traçabilité de modification'>
+                  <group>
+                    <field name="write_date" string='Modifié Le' readonly='1'/>
+                    <field name='write_uid' string='Modifié par' readonly='1'/>
+                  </group>
+                </page>
+                <page string="Motif d'absences">
+                    <field name="motif" />
+                </page>
+
+                  <page string='Notes'>
+                    <field name="note"/>
+                	</page>
+              </notebook>
+                </sheet>
+            </form>
+          </field>
+  </record>
+  <record id="view_absences_search" model="ir.ui.view">
+          <field name="name">LES ABSENCES</field>
+          <field name="model">absence.adherent</field>
+              <field name="arch" type="xml">
+                  <search string="Recherche Absences">
+                      <field name="adherent"/>
+                      <separator/>
+                      <separator/>
+
+                      <group expand="0" string="Grouper Par">
+                          <filter string="Adhérents" domain="[]" context="{'group_by':'adherent'}"/>
+                          <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                          <filter string="Utilisateur" domain="[]" context="{'group_by':'create_uid'}"/>
+                      </group>
+                 </search>
+              </field>
+          </record>
+  <record id="view_absences_tree" model="ir.ui.view">
+          <field name="name">Absences</field>
+          <field name="model">absence.adherent</field>
+          <field name="arch" type="xml">
+            <tree>
+                  <field name='adherent'/>
+                  <field name="date" style='width:auto;'/>
+                  <field name="type_abs" style='width:auto;'/>
+            </tree>
+  </field>
+</record>
+
+</data>
+</openerp>
